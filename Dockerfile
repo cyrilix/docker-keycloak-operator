@@ -1,7 +1,7 @@
-FROM --platform=$BUILDPLATFORM golang:1.15 as builder-src
+FROM --platform=$BUILDPLATFORM golang:1.17 as builder-src
 
 ARG BUILDPLATFORM
-ARG KEYCLOAK_OPERATOR_VERSION=11.0.2
+ARG KEYCLOAK_OPERATOR_VERSION=15.1.0
 
 COPY ./go-autoneg /workspace/go-autoneg
 
@@ -33,8 +33,8 @@ RUN GOOS=$(echo $TARGETPLATFORM | cut -f1 -d/) && \
 FROM gcr.io/distroless/static:latest
 
 WORKDIR /
-COPY --from=builder /workspace/keycloak-operator/keycloak-operator .
+COPY --from=builder /workspace/keycloak-operator/keycloak-operator /usr/local/bin/
 
 USER 1234
-ENTRYPOINT ["/keycloak-operator"]
+ENTRYPOINT ["/usr/local/bin/keycloak-operator"]
 
