@@ -1,7 +1,7 @@
 FROM --platform=$BUILDPLATFORM golang:1.17 as builder-src
 
 ARG BUILDPLATFORM
-ARG KEYCLOAK_OPERATOR_VERSION=15.1.0
+ARG KEYCLOAK_OPERATOR_VERSION=16.0.0
 
 COPY ./go-autoneg /workspace/go-autoneg
 
